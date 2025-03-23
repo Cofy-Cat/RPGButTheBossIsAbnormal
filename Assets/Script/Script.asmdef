@@ -3,7 +3,8 @@
     "rootNamespace": "RPG",
     "references": [
         "cfUnityEngine",
-        "cfEngine"
+        "cfEngine",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
