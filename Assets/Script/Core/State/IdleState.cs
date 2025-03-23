@@ -2,7 +2,7 @@ using cfEngine.Core.Player;
 using cfEngine.Util;
 using UnityEngine;
 
-namespace cfEngine.Core.State{
+namespace cfEngine.Core.State {
     public class IdleState : CharacterState {
         public class Param : StateParam {
             public PlayerStateMachine sm;

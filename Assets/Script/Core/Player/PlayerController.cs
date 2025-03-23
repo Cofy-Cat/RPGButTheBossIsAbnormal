@@ -42,6 +42,7 @@ namespace cfEngine.Core.Player {
         }
     
         private void OnMove(InputAction.CallbackContext context) {
+            Debug.Log("OnMove");
             _lastMoveInput = context.ReadValue<Vector2>();
         
             if (_lastMoveInput != Vector2.zero) {
