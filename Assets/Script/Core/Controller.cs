@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace cfEngine.Core {
+namespace RPG.Core {
     public partial class AnimationName {
         //Make sure your animation name follow this
         public const string Idle = nameof(Idle);

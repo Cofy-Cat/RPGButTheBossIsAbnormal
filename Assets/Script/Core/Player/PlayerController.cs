@@ -1,8 +1,8 @@
-using cfEngine.Core.State;
+using RPG.Core.State;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace cfEngine.Core.Player {
+namespace RPG.Core.Player {
     public class PlayerController : Controller {
         [SerializeField] private PlayerInput _input;
         [SerializeField] private float maxDashClickGap = 0.3f;

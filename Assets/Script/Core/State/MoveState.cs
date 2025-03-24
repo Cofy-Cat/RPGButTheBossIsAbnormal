@@ -1,8 +1,8 @@
-using cfEngine.Core.Player;
 using cfEngine.Util;
+using RPG.Core.Player;
 using UnityEngine;
 
-namespace cfEngine.Core.State {
+namespace RPG.Core.State {
     public class MoveState : CharacterState {
         public class Param : StateParam {
             public PlayerStateMachine sm;
