@@ -4,10 +4,10 @@ namespace RPG.Core {
     public enum CharacterStateId { 
         Idle,
         Move,
-        Dash,
-        Attack,
-        Jump,
-        Dead 
+        // Dash,
+        // Attack,
+        // Jump,
+        // Dead 
     }
 
     public abstract class CharacterState : MonoState<CharacterStateId, CharacterState, CharacterStateMachine> { }

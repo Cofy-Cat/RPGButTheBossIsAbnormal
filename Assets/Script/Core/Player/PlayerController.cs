@@ -14,13 +14,11 @@ namespace RPG.Core.Player {
             _sm.TryGoToState(CharacterStateId.Idle);
         }
         
-        protected override void OnEnable() {
-            base.OnEnable();
+        protected void OnEnable() {
             _input.onActionTriggered += OnActionTriggered;
         }
 
-        protected override void OnDisable() {
-            base.OnDisable();
+        protected void OnDisable() {
             _input.onActionTriggered -= OnActionTriggered;
         }
     
@@ -29,50 +27,22 @@ namespace RPG.Core.Player {
                 case "Move":
                     OnMove(context);
                     break;
-                case "Attack":
-                    OnAttack(context);
-                    break;
-                case "Dash":
-                    OnDash(context);
-                    break;
-                case "Jump":
-                    OnJump(context);
-                    break;
             }
         }
     
         private void OnMove(InputAction.CallbackContext context) {
-            Debug.Log("OnMove");
             _lastMoveInput = context.ReadValue<Vector2>();
-        
-            if (_lastMoveInput != Vector2.zero) {
-                _sm.TryGoToState(CharacterStateId.Move, new MoveState.Param() {
-                    sm = (PlayerStateMachine)_sm,
-                    direction = _lastMoveInput
-                });
-            }
-            else {
-                _sm.TryGoToState(CharacterStateId.Idle, new IdleState.Param() {
-                    sm = (PlayerStateMachine)_sm,
-                });
-            }
-        }
-    
-        private void OnAttack(InputAction.CallbackContext context) {
-            if (context.performed) {
-                _sm.TryGoToState(CharacterStateId.Attack);
-            }
-        }
-    
-        private void OnDash(InputAction.CallbackContext context) {
-            if (context.performed) {
-                _sm.TryGoToState(CharacterStateId.Dash);
-            }
-        }
-    
-        private void OnJump(InputAction.CallbackContext context) {
-            if (context.performed) {
-                _sm.TryGoToState(CharacterStateId.Jump);
+            Debug.Log("OnMove " +  context.phase);
+            switch (context.phase) {
+                case InputActionPhase.Canceled:
+                    _sm.TryGoToState(CharacterStateId.Idle);
+                    break;
+                default:
+                    _sm.TryGoToState(CharacterStateId.Move, new MoveState.Param() {
+                        sm = (PlayerStateMachine)_sm,
+                        direction = _lastMoveInput
+                    });
+                    break;
             }
         }
     }

@@ -572,8 +572,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controller: {fileID: 1166160677}
-  idleState: {fileID: 1166160679}
-  moveState: {fileID: 1166160681}
 --- !u!114 &1166160674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,9 +614,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e72d9d313a44edb8f19e11aefe4def5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitbox: {fileID: 0}
+  _hitbox: {fileID: 1166160672}
   _rb: {fileID: 1166160671}
-  _anim: {fileID: 0}
   _sm: {fileID: 1166160673}
   _mainCharacter: {fileID: 1166160670}
   moveSpeed: {x: 1, y: 1}
