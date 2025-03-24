@@ -401,11 +401,9 @@ GameObject:
   - component: {fileID: 1166160670}
   - component: {fileID: 1166160669}
   - component: {fileID: 1166160672}
-  - component: {fileID: 1166160678}
   - component: {fileID: 1166160671}
   - component: {fileID: 1166160673}
   - component: {fileID: 1166160677}
-  - component: {fileID: 1166160676}
   - component: {fileID: 1166160675}
   - component: {fileID: 1166160674}
   - component: {fileID: 1166160679}
@@ -606,21 +604,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Library: []
   m_SpriteLibraryAsset: {fileID: 0}
---- !u!114 &1166160676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166160668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19ae62dabaeca07419f6f8ee177f11b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  library: {fileID: 1166160675}
-  resolver: {fileID: 1166160674}
-  swapInterval: 0.2
 --- !u!114 &1166160677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,28 +616,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e72d9d313a44edb8f19e11aefe4def5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitbox: {fileID: 1166160678}
+  _hitbox: {fileID: 0}
   _rb: {fileID: 1166160671}
-  _anim: {fileID: 1166160676}
+  _anim: {fileID: 0}
   _sm: {fileID: 1166160673}
   _mainCharacter: {fileID: 1166160670}
   moveSpeed: {x: 1, y: 1}
   dashSpeed: {x: 1, y: 1}
   _input: {fileID: 1166160680}
   maxDashClickGap: 0.3
---- !u!114 &1166160678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166160668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab8748df5981b154782544075556b36c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _collider: {fileID: 1166160672}
 --- !u!114 &1166160679
 MonoBehaviour:
   m_ObjectHideFlags: 0
