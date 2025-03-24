@@ -11,15 +11,18 @@ namespace RPG.Core.State {
         }
         public override CharacterStateId Id => CharacterStateId.Move;
         private PlayerStateMachine _stateMachine;
+        Vector2 direction = Vector2.zero;
         public override HashSet<CharacterStateId> Whitelist { get; } = new() { CharacterStateId.Idle, CharacterStateId.Move };
-        
         protected override void StartContext(StateParam param) {
-            Vector2 direction = Vector2.zero;
-        
             if (param is Param p) {
                 direction = p.direction;
-                p.sm.Controller.SetVelocity(direction * p.sm.Controller.moveSpeed);
+                _stateMachine = p.sm;
             }
+        }
+
+        public override void _Update() {
+            base._Update();
+            _stateMachine.Controller.SetVelocity(direction * _stateMachine.Controller.moveSpeed);
         }
     }
 }
