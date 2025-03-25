@@ -11,7 +11,9 @@ namespace RPG.Core.Player {
         public Vector2 LastMoveInput => _lastMoveInput;
     
         private void Start() {
-            _sm.TryGoToState(CharacterStateId.Idle);
+            _sm.TryGoToState(CharacterStateId.Idle, new IdleState.Param() {
+                sm = (PlayerStateMachine)_sm
+            });
         }
         
         protected void OnEnable() {
@@ -26,6 +28,9 @@ namespace RPG.Core.Player {
             switch (context.action.name) {
                 case "Move":
                     OnMove(context);
+                    break;
+                case "Jump":
+                    OnJump(context);
                     break;
             }
         }
@@ -45,6 +50,14 @@ namespace RPG.Core.Player {
                         direction = _lastMoveInput
                     });
                     break;
+            }
+        }
+
+        private void OnJump(InputAction.CallbackContext context) {
+            if (context.phase == InputActionPhase.Performed) {
+                _sm.TryGoToState(CharacterStateId.Jump, new JumpState.Param() {
+                    sm = (PlayerStateMachine)_sm,
+                });
             }
         }
     }

@@ -6,7 +6,7 @@ namespace RPG.Core {
         Move,
         // Dash,
         // Attack,
-        // Jump,
+        Jump,
         // Dead 
     }
 
