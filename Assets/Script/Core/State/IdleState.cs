@@ -15,7 +15,8 @@ namespace RPG.Core.State {
         protected override void StartContext(StateParam param) {
             if (param is Param p) {
                 _stateMachine = p.sm;
-                _stateMachine.Controller.SetVelocity(Vector2.zero);
+                _stateMachine.Controller.Rigidbody.linearDamping = 1000000;
+                _stateMachine.Controller.Rigidbody.linearVelocity = Vector2.zero;
             }
         }
     }

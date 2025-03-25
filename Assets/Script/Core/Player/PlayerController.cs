@@ -35,7 +35,9 @@ namespace RPG.Core.Player {
             Debug.Log("OnMove " +  context.phase);
             switch (context.phase) {
                 case InputActionPhase.Canceled:
-                    _sm.TryGoToState(CharacterStateId.Idle);
+                    _sm.TryGoToState(CharacterStateId.Idle, new IdleState.Param() {
+                        sm = (PlayerStateMachine)_sm
+                    });
                     break;
                 default:
                     _sm.TryGoToState(CharacterStateId.Move, new MoveState.Param() {

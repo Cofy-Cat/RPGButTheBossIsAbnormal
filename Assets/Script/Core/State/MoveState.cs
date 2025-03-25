@@ -17,6 +17,7 @@ namespace RPG.Core.State {
             if (param is Param p) {
                 direction = p.direction;
                 _stateMachine = p.sm;
+                _stateMachine.Controller.Rigidbody.linearDamping = 0;
             }
         }
 
