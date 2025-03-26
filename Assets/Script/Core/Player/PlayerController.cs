@@ -6,7 +6,7 @@ namespace RPG.Core.Player {
     public class PlayerController : Controller {
         [SerializeField] private PlayerInput _input;
         [SerializeField] private float maxDashClickGap = 0.3f;
-    
+        
         private Vector2 _lastMoveInput = Vector2.zero;
         public Vector2 LastMoveInput => _lastMoveInput;
     
@@ -40,9 +40,11 @@ namespace RPG.Core.Player {
             Debug.Log("OnMove " +  context.phase);
             switch (context.phase) {
                 case InputActionPhase.Canceled:
-                    _sm.TryGoToState(CharacterStateId.Idle, new IdleState.Param() {
-                        sm = (PlayerStateMachine)_sm
-                    });
+                    if (_sm.CurrentStateId != CharacterStateId.Jump) {
+                        _sm.TryGoToState(CharacterStateId.Idle, new IdleState.Param() {
+                            sm = (PlayerStateMachine)_sm
+                        });
+                    }
                     break;
                 default:
                     _sm.TryGoToState(CharacterStateId.Move, new MoveState.Param() {
@@ -57,6 +59,7 @@ namespace RPG.Core.Player {
             if (context.phase == InputActionPhase.Performed) {
                 _sm.TryGoToState(CharacterStateId.Jump, new JumpState.Param() {
                     sm = (PlayerStateMachine)_sm,
+                    context = context
                 });
             }
         }

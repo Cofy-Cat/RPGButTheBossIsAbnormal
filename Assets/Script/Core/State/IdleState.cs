@@ -10,7 +10,7 @@ namespace RPG.Core.State {
         }
         public override CharacterStateId Id => CharacterStateId.Idle;
         private PlayerStateMachine _stateMachine;
-        public override HashSet<CharacterStateId> Whitelist { get; } = new() { CharacterStateId.Move, CharacterStateId.Jump };
+        public override HashSet<CharacterStateId> Whitelist { get; } = new() { CharacterStateId.Move, CharacterStateId.Jump, CharacterStateId.Idle };
         
         protected override void StartContext(StateParam param) {
             if (param is Param p) {

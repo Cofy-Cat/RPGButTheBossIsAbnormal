@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 73893878}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -442,9 +442,17 @@ PrefabInstance:
       propertyPath: moveSpeed.x
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4735172417030976963, guid: 00c573ba47a92d040924493a13d6a71d, type: 3}
+      propertyPath: moveSpeed.y
+      value: 3000
+      objectReference: {fileID: 0}
     - target: {fileID: 6893477021542993024, guid: 00c573ba47a92d040924493a13d6a71d, type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6893477021542993024, guid: 00c573ba47a92d040924493a13d6a71d, type: 3}
+      propertyPath: m_UseAutoMass
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6893477021542993024, guid: 00c573ba47a92d040924493a13d6a71d, type: 3}
       propertyPath: m_LinearDamping

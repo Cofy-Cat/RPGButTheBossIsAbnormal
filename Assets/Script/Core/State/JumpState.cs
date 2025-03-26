@@ -1,12 +1,15 @@
+using System;
 using System.Collections.Generic;
 using cfEngine.Util;
 using RPG.Core.Player;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace RPG.Core.State {
     public class JumpState : CharacterState {
         public class Param : StateParam {
             public PlayerStateMachine sm;
+            public InputAction.CallbackContext context;
         }
         public override CharacterStateId Id => CharacterStateId.Jump;
         private PlayerStateMachine _stateMachine;
@@ -16,12 +19,16 @@ namespace RPG.Core.State {
             if (param is Param p) {
                 _stateMachine = p.sm;
                 _stateMachine.Controller.Rigidbody.linearDamping = 0;
+                _stateMachine.Controller.Rigidbody.AddRelativeForceY(_stateMachine.Controller.moveSpeed.y);
             }
         }
-        
-        public override void _Update() {
-            base._Update();
-            _stateMachine.Controller.Rigidbody.AddRelativeForceY(_stateMachine.Controller.moveSpeed.y);
+
+        private void OnCollisionEnter2D(Collision2D other) {
+            if (other.collider.tag.Contains("Floor")) {
+                _stateMachine.TryGoToState(CharacterStateId.Idle, new IdleState.Param() {
+                    sm = _stateMachine,
+                });
+            } 
         }
     }
 }
