@@ -37,10 +37,10 @@ namespace RPG.Core.Player {
         private void OnMove(InputAction.CallbackContext context) {
             switch (context.phase) {
                 case InputActionPhase.Canceled:
-                    _lastMoveInput = Vector2.zero;
+                    _lastMoveInput = new Vector2(0, _lastMoveInput.y);
                     break;
                 default:
-                    _lastMoveInput = context.ReadValue<Vector2>();
+                    _lastMoveInput = new Vector2(context.ReadValue<Vector2>().x, _lastMoveInput.y);
                     break;
             }
         }
@@ -48,7 +48,7 @@ namespace RPG.Core.Player {
         private void OnJump(InputAction.CallbackContext context) {
             switch (context.phase) {
                 case InputActionPhase.Canceled:
-                    _lastMoveInput = Vector2.zero;
+                    _lastMoveInput = new Vector2(_lastMoveInput.x, 0);
                     break;
                 default:
                     _lastMoveInput = new Vector2(_lastMoveInput.x, 1);
