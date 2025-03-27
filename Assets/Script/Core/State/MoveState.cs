@@ -7,15 +7,12 @@ namespace RPG.Core.State {
     public class MoveState : CharacterState {
         public class Param : StateParam {
             public PlayerStateMachine sm;
-            public Vector2 direction;
         }
         public override CharacterStateId Id => CharacterStateId.Move;
         private PlayerStateMachine _stateMachine;
-        Vector2 direction = Vector2.zero;
         public override HashSet<CharacterStateId> Whitelist { get; } = new() { CharacterStateId.Idle, CharacterStateId.Move, CharacterStateId.Jump }; // Dash
         protected override void StartContext(StateParam param) {
             if (param is Param p) {
-                direction = p.direction;
                 _stateMachine = p.sm;
                 _stateMachine.Controller.Rigidbody.linearDamping = 0;
             }
@@ -23,7 +20,15 @@ namespace RPG.Core.State {
 
         public override void _Update() {
             base._Update();
-            _stateMachine.Controller.SetVelocity(direction * _stateMachine.Controller.moveSpeed);
+            
+            if (_stateMachine.Controller.LastMoveInput.x == 0) {
+                _stateMachine.TryGoToState(CharacterStateId.Idle, new IdleState.Param { sm = _stateMachine });
+            }
+            else if (_stateMachine.Controller.LastMoveInput.y > 0) {
+                _stateMachine.TryGoToState(CharacterStateId.Jump, new JumpState.Param { sm = _stateMachine });
+            }
+            
+            _stateMachine.Controller.SetVelocity(_stateMachine.Controller.LastMoveInput * _stateMachine.Controller.moveSpeed);
         }
     }
 }

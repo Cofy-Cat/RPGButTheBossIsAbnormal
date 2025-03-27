@@ -7,9 +7,6 @@ namespace RPG.Core.Player {
         [SerializeField] private PlayerInput _input;
         [SerializeField] private float maxDashClickGap = 0.3f;
         
-        private Vector2 _lastMoveInput = Vector2.zero;
-        public Vector2 LastMoveInput => _lastMoveInput;
-    
         private void Start() {
             _sm.TryGoToState(CharacterStateId.Idle, new IdleState.Param() {
                 sm = (PlayerStateMachine)_sm
@@ -35,32 +32,27 @@ namespace RPG.Core.Player {
             }
         }
     
+        // Change the following to changing input instead of directly changing states,
+        // and have the states check for input change to determine which states to go
         private void OnMove(InputAction.CallbackContext context) {
-            _lastMoveInput = context.ReadValue<Vector2>();
-            Debug.Log("OnMove " +  context.phase);
             switch (context.phase) {
                 case InputActionPhase.Canceled:
-                    if (_sm.CurrentStateId != CharacterStateId.Jump) {
-                        _sm.TryGoToState(CharacterStateId.Idle, new IdleState.Param() {
-                            sm = (PlayerStateMachine)_sm
-                        });
-                    }
+                    _lastMoveInput = Vector2.zero;
                     break;
                 default:
-                    _sm.TryGoToState(CharacterStateId.Move, new MoveState.Param() {
-                        sm = (PlayerStateMachine)_sm,
-                        direction = _lastMoveInput
-                    });
+                    _lastMoveInput = context.ReadValue<Vector2>();
                     break;
             }
         }
 
         private void OnJump(InputAction.CallbackContext context) {
-            if (context.phase == InputActionPhase.Performed) {
-                _sm.TryGoToState(CharacterStateId.Jump, new JumpState.Param() {
-                    sm = (PlayerStateMachine)_sm,
-                    context = context
-                });
+            switch (context.phase) {
+                case InputActionPhase.Canceled:
+                    _lastMoveInput = Vector2.zero;
+                    break;
+                default:
+                    _lastMoveInput = new Vector2(_lastMoveInput.x, 1);
+                    break;
             }
         }
     }

@@ -17,6 +17,9 @@ namespace RPG.Core {
         public Transform MainCharacter => _mainCharacter;
     
         #endregion
+        
+        protected Vector2 _lastMoveInput = Vector2.zero;
+        public Vector2 LastMoveInput => _lastMoveInput;
     
         protected virtual void Awake() {
             _sm.Controller = this;

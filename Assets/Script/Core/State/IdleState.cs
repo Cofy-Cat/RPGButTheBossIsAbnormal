@@ -19,5 +19,18 @@ namespace RPG.Core.State {
                 _stateMachine.Controller.Rigidbody.linearVelocity = Vector2.zero;
             }
         }
+
+        public override void _Update() {
+            base._Update();
+            
+            if (_stateMachine.Controller.LastMoveInput.x > 0) {
+                _stateMachine.Controller.Rigidbody.linearDamping = 0;
+                _stateMachine.TryGoToState(CharacterStateId.Move, new MoveState.Param { sm = _stateMachine });
+            }
+            else if (_stateMachine.Controller.LastMoveInput.y > 0) {
+                _stateMachine.Controller.Rigidbody.linearDamping = 0;
+                _stateMachine.TryGoToState(CharacterStateId.Jump, new JumpState.Param { sm = _stateMachine });
+            }
+        }
     }
 }
