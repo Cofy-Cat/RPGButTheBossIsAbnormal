@@ -9,13 +9,13 @@ namespace RPG.Core.State {
     public class JumpState : CharacterState {
         public class Param : StateParam {
             public PlayerStateMachine sm;
-            public InputAction.CallbackContext context;
         }
         public override CharacterStateId Id => CharacterStateId.Jump;
         private PlayerStateMachine _stateMachine;
         public override HashSet<CharacterStateId> Whitelist { get; } = new() { CharacterStateId.Move, CharacterStateId.Idle };
         
         protected override void StartContext(StateParam param) {
+            Debug.Log("Start JumpState");
             if (param is Param p) {
                 _stateMachine = p.sm;
                 _stateMachine.Controller.Rigidbody.linearDamping = 0;
@@ -24,11 +24,35 @@ namespace RPG.Core.State {
         }
 
         private void OnCollisionEnter2D(Collision2D other) {
+            if (_stateMachine == null) { return; }
+            
             if (other.collider.tag.Contains("Floor")) {
-                _stateMachine.TryGoToState(CharacterStateId.Idle, new IdleState.Param() {
-                    sm = _stateMachine,
-                });
-            } 
+                if (_stateMachine.Controller.LastMoveInput.Equals(Vector2.zero)) {
+                    _stateMachine.TryGoToState(CharacterStateId.Idle, new IdleState.Param { sm = _stateMachine });
+                }
+                else if (_stateMachine.Controller.LastMoveInput.x > 0){
+                    _stateMachine.TryGoToState(CharacterStateId.Move, new MoveState.Param { sm = _stateMachine });
+                }
+                else {
+                    _stateMachine.Controller.Rigidbody.AddRelativeForceY(_stateMachine.Controller.moveSpeed.y);
+                }
+            }
         }
+        private void OnCollisionStay2D(Collision2D other) {
+            if (_stateMachine == null) { return; }
+            
+            if (other.collider.tag.Contains("Floor")) {
+                if (_stateMachine.Controller.LastMoveInput.Equals(Vector2.zero)) {
+                    _stateMachine.TryGoToState(CharacterStateId.Idle, new IdleState.Param { sm = _stateMachine });
+                }
+                else if (_stateMachine.Controller.LastMoveInput.x > 0){
+                    _stateMachine.TryGoToState(CharacterStateId.Move, new MoveState.Param { sm = _stateMachine });
+                }
+                else {
+                    _stateMachine.Controller.Rigidbody.AddRelativeForceY(_stateMachine.Controller.moveSpeed.y);
+                }
+            }
+        }
+        
     }
 }
